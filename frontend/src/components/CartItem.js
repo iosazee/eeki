@@ -1,6 +1,6 @@
 import { Button, CardMedia, Typography, Grid } from "@mui/material";
 import axios from "axios";
-import { API_URL, fetchCartItems } from "../constants";
+import { BASE_URL, fetchCartItems } from "../constants";
 import eventEmitter from "../constants/events";
 
 
@@ -12,7 +12,7 @@ const CartItem = ({itemData, setCartItems, cartItems}) => {
 
 
     const deleteCartItem = (id) => {
-        axios.delete(`${API_URL}cart/${cartId}/items/${id}/`)
+        axios.delete(`${BASE_URL}cart/${cartId}/items/${id}/`)
             .then(response => {
                 console.log(`Cart item ${id} deleted successfully`, response);
                 // Remove the deleted item from cart items

@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import { useParams, Link } from 'react-router-dom';
 import LazyLoad from 'react-lazy-load';
 import axios from "axios";
-import { API_URL, fetchCartItems} from '../constants';
+import { BASE_URL, fetchCartItems} from '../constants';
 import eventEmitter from '../constants/events';
 
 
@@ -23,7 +23,7 @@ const ProductDetail = ({setCartItems}) => {
    
 
     useEffect(() => {
-        axios.get(`${API_URL}products/${id}`)
+        axios.get(`${BASE_URL}products/${id}`)
           .then(response => {
             setSelectedProduct(response.data);
             // console.log(response.data)
@@ -43,7 +43,7 @@ const ProductDetail = ({setCartItems}) => {
           "quantity": 1,
           "user_id": userId
         };
-        axios.post(`${API_URL}cart/${cartId}/items/`, newItem)
+        axios.post(`${BASE_URL}cart/${cartId}/items/`, newItem)
           .then(response => {
             // console.log( "PD Resp", response.data);
             localStorage.setItem('cart_updated', true);

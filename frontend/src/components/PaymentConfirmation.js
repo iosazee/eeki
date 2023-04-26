@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 const PaymentConfirmation = () => {
   const navigate = useNavigate();
+  // eslint-disable-next-line
   const { orderId } = useParams();
 
   useEffect(() => {

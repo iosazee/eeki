@@ -19,6 +19,7 @@ import eventEmitter from '../constants/events';
 const ProductDetail = ({setCartItems}) => {
 
     const [selectedProduct, setSelectedProduct] = useState(null)
+    const [errorMessage, setErrorMessage] = useState('');
     let {id} = useParams()
    
 
@@ -36,9 +37,15 @@ const ProductDetail = ({setCartItems}) => {
 
 
       const handleAddItemToCart = () => {
-        const cartId = localStorage.getItem('cart_id');
-        const userId = localStorage.getItem('user_id');
-        const newItem = {
+          const cartId = localStorage.getItem('cart_id');
+          const userId = localStorage.getItem('user_id');
+
+          if (!userId) {
+              setErrorMessage('Please log in or register to add items to the cart.');
+              return;
+          }
+
+          const newItem = {
           "product_id": selectedProduct.id,
           "quantity": 1,
           "user_id": userId
@@ -106,6 +113,11 @@ const ProductDetail = ({setCartItems}) => {
                                         <Button variant="contained" size="small" onClick={handleAddItemToCart} data-testid="add-to-cart" color='inherit' sx={{mr:12 }} >Add to Cart</Button>
                                         <Link to="/cart" style={{ textDecoration: "none", color: 'inherit' }} ><Button variant="contained" size="small" color='inherit'>View Cart</Button></Link>
                                     </CardActions>
+                                    {errorMessage && (
+                                        <Typography variant="body2" style={{ color: 'red', marginTop: '10px' }}>
+                                            {errorMessage}
+                                        </Typography>
+                                    )}
                                 </Grid>
                             </Grid>
                         </Card>
@@ -122,3 +134,5 @@ const ProductDetail = ({setCartItems}) => {
 }
 
 export default ProductDetail;
+
+

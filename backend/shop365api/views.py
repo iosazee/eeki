@@ -13,6 +13,7 @@ import uuid
 from django.urls import reverse
 from django.http import JsonResponse
 from django.views import View
+from django.core.exceptions import ValidationError
 
 
 # Create your views here.
@@ -98,23 +99,36 @@ class CartItemViewSet(ModelViewSet):
     serializer_class = CartItemSerializer
 
     def get_queryset(self):
-        return CartItems.objects.filter(cart_id=self.kwargs["cart_pk"])
+        cart_id = self.kwargs.get("cart_pk")
+        if cart_id is None:
+            return CartItems.objects.none()
+        return CartItems.objects.filter(cart_id=cart_id)
 
     def get_serializer_class(self):
         if self.request.method == "POST":
             return AddCartItemSerializer
         elif self.request.method == "PATCH":
             return UpdateCartItemSerializer
-
         return CartItemSerializer
 
     def get_serializer_context(self):
-        return {"cart_id": self.kwargs["cart_pk"]}
+        return {"cart_id": self.kwargs.get("cart_pk")}
 
     def perform_create(self, serializer):
-        cart_id = self.kwargs["cart_pk"]
-        self.request.session['cart_id'] = cart_id
-        cart = get_object_or_404(Cart, pk=cart_id)
+        cart_id = self.kwargs.get("cart_pk")
+        if cart_id is None:
+            return Response(
+                {"error": "cart_id must be specified"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        self.request.session["cart_id"] = cart_id
+        try:
+            cart = get_object_or_404(Cart, pk=cart_id)
+        except ValidationError:
+            return Response(
+                {"error": "Invalid cart_id"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         data = serializer.validated_data
         product_id = data.get("product_id")
         product = get_object_or_404(Product, pk=product_id)
@@ -125,6 +139,7 @@ class CartItemViewSet(ModelViewSet):
             cart_item.save()
         else:
             cart_item = serializer.save(cart=cart, product=product, quantity=quantity)
+
 
     def perform_destroy(self, instance):
         if instance.quantity > 1:

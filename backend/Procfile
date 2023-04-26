@@ -1,0 +1,1 @@
+web: gunicorn shop365.wsgi:application -c ./gunicorn.conf.py

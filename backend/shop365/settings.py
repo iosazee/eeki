@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get('secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('debug')
 
-ALLOWED_HOSTS = ["3.83.130.243", '84.9.64.117', "localhost", "127.0.0.1", "shop365api.store"]
+ALLOWED_HOSTS = ["54.84.135.14", '84.9.64.117', "localhost", "127.0.0.1", "shop365api.store"]
 
 
 # Application definition

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, TextField, Typography, Card, CardContent } from "@mui/material";
-import { API_URL, BASE_URL } from '../constants';
+import { BASE_URL } from '../constants';
 import axios from 'axios';
 
 function UserLogin() {
@@ -31,7 +31,7 @@ function UserLogin() {
         setIsRegistering(false);
       } else {
         // get the user id from the user endpoint using the JWT access token
-        const userResponse = await axios.get(`${API_URL}user/`, {
+        const userResponse = await axios.get(`${BASE_URL}user/`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `JWT ${access}`,
@@ -41,7 +41,7 @@ function UserLogin() {
         localStorage.setItem('user_id', userId)
   
         // get the session key from the user endpoint using the JWT access token
-        const sessionResponse = await axios.get(`${API_URL}user/${userId}/`, {
+        const sessionResponse = await axios.get(`${BASE_URL}user/${userId}/`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `JWT ${access}`,
@@ -59,7 +59,7 @@ function UserLogin() {
           user_id: userId,
           session_key: localStorage.getItem('session_key') || '',
         };
-        const cartResponse = await axios.post(`${API_URL}cart/`, cartData, {
+        const cartResponse = await axios.post(`${BASE_URL}cart/`, cartData, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `JWT ${access}`,

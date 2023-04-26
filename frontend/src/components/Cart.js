@@ -3,7 +3,7 @@ import { Card, Typography, CardActions, Button, Modal, Box, Container, Grid } fr
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import CartItem from "./CartItem";
 import { useNavigate, Link } from "react-router-dom";
-import { fetchCartItems, API_URL } from "../constants";
+import { fetchCartItems, BASE_URL } from "../constants";
 import eventEmitter from "../constants/events";
 import axios from "axios";
 
@@ -36,7 +36,7 @@ const Cart = ({ cartItems, deleteCartItem, setCartItems }) => {
         'status': 'pending'
       };
       console.log(userId)
-      const response = await axios.post(`${API_URL}orders/`, orderData, {
+      const response = await axios.post(`${BASE_URL}orders/`, orderData, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `JWT ${access}`,
@@ -46,7 +46,7 @@ const Cart = ({ cartItems, deleteCartItem, setCartItems }) => {
       const orderId = response.data.id;
   
       // Clear the cart
-      axios.delete(`${API_URL}cart/${cartId}/items/`)
+      axios.delete(`${BASE_URL}cart/${cartId}/items/`)
         .then(resp => {
           console.log(`Your order is successful, cart emptied`);
           fetchCartItems(cartId, setCartItems);

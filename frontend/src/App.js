@@ -12,7 +12,7 @@ import './App.css';
 import FeaturedProduct from './components/FeaturedProduct';
 import Results from './components/Results';
 import axios from 'axios';
-import { API_URL, fetchCartItems } from './constants';
+import { BASE_URL, fetchCartItems } from './constants';
 import UserLogin from './components/UserLogin';
 import Payment from './components/Payment';
 import PaymentConfirmation from './components/PaymentConfirmation';
@@ -38,7 +38,7 @@ function App() {
 
 
     useEffect(() => {
-      axios.get(`${API_URL}products`)
+      axios.get(`${BASE_URL}products`)
         .then(response => {
           setProducts(response.data.results);
           // console.log(response.data.results)

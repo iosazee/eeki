@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { API_URL } from '../constants';
+import { BASE_URL } from '../constants';
 import axios from 'axios';
 import {
   TextField,
@@ -71,7 +71,7 @@ const Payment = () => {
       order_id: orderId
     };
 
-    axios.post(`${API_URL}payments/`, formData, {
+    axios.post(`${BASE_URL}payments/`, formData, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `JWT ${accessToken}`,

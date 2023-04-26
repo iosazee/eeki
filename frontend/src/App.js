@@ -13,7 +13,7 @@ import FeaturedProduct from './components/FeaturedProduct';
 import Results from './components/Results';
 import axios from 'axios';
 import { API_URL, fetchCartItems } from './constants';
-import UserLogin from './pages/UserLogin';
+import UserLogin from './components/UserLogin';
 import Payment from './components/Payment';
 import PaymentConfirmation from './components/PaymentConfirmation';
 

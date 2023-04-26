@@ -10,10 +10,14 @@ from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.db.models import Q
 import uuid
-from django.core.exceptions import ValidationError
+from django.urls import reverse
+from django.http import JsonResponse
+from django.views import View
 
 
 # Create your views here.
+
+
 
 class UserViewset(ModelViewSet):
     serializer_class = UserSerializer
@@ -268,3 +272,35 @@ class OrderDetailView(generics.RetrieveAPIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response({'detail': 'You do not have permission to access this order.'}, status=status.HTTP_403_FORBIDDEN)
+
+
+
+class IndexView(View):
+    def get(self, request, *args, **kwargs):
+        endpoints = {
+            'categories-list': reverse('categories-list'),
+            'categories-detail': reverse('categories-detail', args=[1]),
+            'products-list': reverse('products-list'),
+            'products-detail': reverse('products-detail', args=[1]),
+            # 'carts-list': reverse('carts-list'),
+            # 'carts-detail': reverse('carts-detail', args=[1]),
+            # 'cart-items-list': reverse('cart-items-list', args=[1]),
+
+            # 'user-list': reverse('user-list'),
+            # 'user-detail': reverse('user-detail', args=[1]),
+            # 'order-item-list': reverse('order-item-list'),
+            # 'order-item-detail': reverse('order-item-detail', args=[1]),
+            # 'payments-list': reverse('payment-list'),
+            # 'payments-detail': reverse('payment-detail', args=[1]),
+        }
+
+        links = []
+        for name, url in endpoints.items():
+            links.append({
+                'name': name,
+                'url': url,
+            })
+
+        return JsonResponse({'endpoints': links})
+
+

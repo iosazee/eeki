@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get('secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('debug')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["3.83.130.243", '84.9.64.117', "localhost", "127.0.0.1", "shop365api.store"]
 
 
 # Application definition
@@ -90,13 +90,13 @@ WSGI_APPLICATION = 'shop365.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('db_name'),
-        'USER': os.getenv('db_user'),
-        'PASSWORD': os.getenv('db_password'),
-        'HOST': os.getenv('db_host', 'localhost'),
-        'PORT': os.getenv('db_port', '3306'),
-        'OPTIONS': {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.getenv("db_name"),
+        "USER": os.getenv("db_user"),
+        "PASSWORD": os.getenv("db_password"),
+        "HOST": os.getenv("db_host"),
+        "PORT": os.getenv("db_port"),
+        "OPTIONS": {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
         }
     }
@@ -138,6 +138,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = 'media/'
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -156,7 +160,7 @@ cloudinary.config(
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
+        # 'rest_framework.renderers.BrowsableAPIRenderer',
         'rest_framework_xml.renderers.XMLRenderer',
     ],
 
@@ -201,8 +205,8 @@ DJOSER = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = ['http://localhost:8000']
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
+CORS_ORIGIN_WHITELIST = ['https://shop365api.store']
+CSRF_TRUSTED_ORIGINS = ['https://shop365api.store']
 
 
 

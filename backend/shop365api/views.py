@@ -92,6 +92,7 @@ class CartViewSet(ModelViewSet):
 
 
 
+
 class CartItemViewSet(ModelViewSet):
     http_method_names = ["get", "post", "patch", "delete"]
     serializer_class = CartItemSerializer
@@ -126,12 +127,17 @@ class CartItemViewSet(ModelViewSet):
             cart_item = serializer.save(cart=cart, product=product, quantity=quantity)
 
     def perform_destroy(self, instance):
-        instance.delete()
+        if instance.quantity > 1:
+            instance.quantity -= 1
+            instance.save()
+        else:
+            instance.delete()
 
     def delete(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         queryset.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 

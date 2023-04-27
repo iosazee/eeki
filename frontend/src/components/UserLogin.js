@@ -65,8 +65,9 @@ function UserLogin() {
             'Authorization': `JWT ${access}`,
           },
         });
-        if (cartResponse.status === 201) {
-          const cartData = cartResponse.data;
+        if (cartResponse !== null) {
+          const cartData = cartResponse.data
+          // console.log("cartData", cartData)
           localStorage.setItem('cart_id', cartData.id);
         } else {
           setError('Error creating cart');

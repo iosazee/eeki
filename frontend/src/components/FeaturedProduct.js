@@ -13,7 +13,7 @@ const FeaturedProduct = ({ products }) => {
 
     const generateRandomNumber = () => {
         const min = 1;
-        const max = 19;
+        const max = 21;
         const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
         setRandomNumber(randomInt);
     };

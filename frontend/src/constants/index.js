@@ -2,7 +2,7 @@ import axios from "axios";
 import eventEmitter from "./events";
 
 
-export const BASE_URL = "http://localhost:8000/"
+export const BASE_URL = "https://shop365api.store/"
 
 
 export const fetchCartItems = (cartId, setCartItems) => {

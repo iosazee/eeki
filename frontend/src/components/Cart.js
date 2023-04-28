@@ -35,7 +35,6 @@ const Cart = ({ cartItems, deleteCartItem, setCartItems }) => {
         'user_id': userId,
         'status': 'pending'
       };
-      console.log(userId)
       const response = await axios.post(`${BASE_URL}orders/`, orderData, {
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +47,7 @@ const Cart = ({ cartItems, deleteCartItem, setCartItems }) => {
       // Clear the cart
       axios.delete(`${BASE_URL}cart/${cartId}/items/`)
         .then(resp => {
-          console.log(`Your order is successful, cart emptied`);
+          // console.log(`Your order is successful, cart emptied`);
           fetchCartItems(cartId, setCartItems);
           localStorage.removeItem('cartitems');
           eventEmitter.emit('cartUpdated', items.length);

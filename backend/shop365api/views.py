@@ -4,7 +4,6 @@ from .serializers import CategorySerializer, ProductSerializer, CartSerializer, 
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.viewsets import ModelViewSet
 from core.models import MyUser
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -16,13 +15,14 @@ from django.views import View
 from django.core.exceptions import ValidationError
 
 
-# Create your views here.
 
+# Create your views here.
 
 
 class UserViewset(ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
+    
 
     def get_queryset(self):
         if self.request.user.is_superuser:
@@ -43,6 +43,7 @@ class UserViewset(ModelViewSet):
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    
 
 
 
@@ -51,6 +52,7 @@ class ProductViewset(ModelViewSet):
     serializer_class = ProductSerializer
     ordering_fields = ['category', 'price']
     search_fields = ['title', 'category__title']
+    
 
     def get_permissions(self):
         permission_classes = []

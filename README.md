@@ -37,7 +37,7 @@ See below for a list of available endpoints:
 * Remove or reduce the quantity of a product in the cart: https://shop365api.store/cart/cart-id/items
 * Checkout and create an order: https://shop365api.store/orders
 * Update your order https://shop365api.store/orders/order-id
-* Pay for an order: https://shop365api.store/paymenta
+* Pay for an order: https://shop365api.store/payments
 
 
 ___

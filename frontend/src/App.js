@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Products from './components/Products'
 import ProductDetail from './components/ProductDetail';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import ContactUs from './components/ContactUs';
 import Cart from './components/Cart';
 import NavBar from './components/Navbar';

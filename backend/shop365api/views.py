@@ -41,7 +41,7 @@ class UserViewset(ModelViewSet):
 
 
 class CategoryViewSet(ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('id')
     serializer_class = CategorySerializer
     
 
@@ -104,7 +104,7 @@ class CartItemViewSet(ModelViewSet):
         cart_id = self.kwargs.get("cart_pk")
         if cart_id is None:
             return CartItems.objects.none()
-        return CartItems.objects.filter(cart_id=cart_id)
+        return CartItems.objects.filter(cart_id=cart_id).order_by('id')
 
     def get_serializer_class(self):
         if self.request.method == "POST":
@@ -164,9 +164,13 @@ class OrderItemViewSet(ModelViewSet):
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return MyUser.objects.all().order_by('id')
+            return OrderItem.objects.all().order_by('id')
         else:
-            return MyUser.objects.filter(id=self.request.user.id)
+            order_items = OrderItem.objects.filter(order__user=self.request.user).order_by('id')
+            order_ids = order_items.values_list('order', flat=True).distinct()
+            orders = Order.objects.filter(id__in=order_ids)
+            return order_items.filter(order__in=orders)
+
 
 
 

@@ -18,7 +18,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-
+    category = CategorySerializer()
     class Meta:
         model = Product
         fields = ['id', 'title','description', 'featured', 'image', 'rating', 'price', 'category']
@@ -109,10 +109,15 @@ class CartSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    cart = CartItemSerializer('product')
+    product = SimpleProductSerializer()
+    order = serializers.SerializerMethodField()
+
     class Meta:
         model = OrderItem
-        fields = ('cart', 'id')
+        fields = ('product', 'quantity', 'price', 'order')
+
+    def get_order(self, obj):
+        return obj.order.id
 
 
 

@@ -160,8 +160,8 @@ cloudinary.config(
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-        # 'rest_framework.renderers.BrowsableAPIRenderer',
         'rest_framework_xml.renderers.XMLRenderer',
+        # 'rest_framework.renderers.BrowsableAPIRenderer',
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -177,7 +177,7 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 100,
+    'PAGE_SIZE': 50,
 
     # 'DEFAULT_THROTTLE_CLASSES': [
     #     'rest_framework.throttling.AnonRateThrottle',
@@ -186,7 +186,7 @@ REST_FRAMEWORK = {
 
     # 'DEFAULT_THROTTLE_RATES': {
     #     'anon': '5/minute',
-    #     'user': '10/minute',
+    #     'user': '1000/minute',
     # }
 }
 

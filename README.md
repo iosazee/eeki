@@ -8,7 +8,7 @@ This project is a fullstack ecommerce application which enables users carry out 
 
 ## Table of Contents
 
-* [About](#about)
+* [About the Project](#about-the-project)
 
 * [Deployment](#deployment)
 
@@ -28,16 +28,17 @@ This project is a fullstack ecommerce application which enables users carry out 
 
 The backend is built with the django rest framework and utilizes MYSQL database for information. This is an API which provides several endpoints that enables new users to register, old users to login and obtain access tokens,  create a cart, fetch all products, add products to their cart, update products in their cart, create an order on checkout, make payment for thier order.  Users are also able to search and filter products by category.
 See below for a list of available endpoints:
-* New User Registration https://shop365api.store/auth/users
-* User Login and access token generation: https://shop365api.store/auth/jwt/create
-* Get a cart: https://shop365api.store/cart
-* Get all products: https://shop365api.store/products
-* Get a specific product: https://shop365api.store/products/product-id
-* Add products to cart: https://shop365api.store/cart/cart-id/items
-* Remove or reduce the quantity of a product in the cart: https://shop365api.store/cart/cart-id/items
-* Checkout and create an order: https://shop365api.store/orders
-* Update your order https://shop365api.store/orders/order-id
-* Pay for an order: https://shop365api.store/payments
+
+* New User Registration [POST /auth/users]: Allows users to register for a new account.
+* User Login and access token generation: [POST /auth/jwt/create]: Allows users to login and obtain an access token to use for authenticated API requests.
+* Get a cart: [POST /cart]: Retrieves the specified cart for the authenticated user.
+* Get all products: [GET /products]: Retrieves a list of all available products.
+* Get a specific product: [GET /products/product-id]: Retrieves details for the specified product.
+* Add products to cart:  [GET /cart/cart-id/items]: Adds one or more products to the specified cart.
+* Remove or reduce the quantity of a product in the cart: [DELETE /cart/cart-id/items]: Removes one or more items from the specified cart or reduces the quantity of an item in the cart.
+* Checkout and create an order: [POST /orders]: Initiates the checkout process and creates a new order.
+* Update your order [PUT/PATCH /orders]: Allows users to update the details of an existing order.
+* Pay for an order: [POST /payments]: Allows users to submit payment for an existing order.
 
 
 ___
